@@ -44,6 +44,13 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import timber.log.Timber;
 
+//new
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.os.Looper;
+import android.widget.Toast;
+import android.content.Context;
+
 public class MainActivity extends AppCompatActivity {
 
   private ColorPickerView colorPickerView;
@@ -101,6 +108,32 @@ public class MainActivity extends AppCompatActivity {
     final BrightnessSlideBar brightnessSlideBar = findViewById(R.id.brightnessSlide);
     colorPickerView.attachBrightnessSlider(brightnessSlideBar);
     colorPickerView.setLifecycleOwner(this);
+
+        // added clipboard featrue（optimized）
+        try {
+            final ClipboardManager clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
+
+			findViewById(R.id.copyColor).setOnClickListener(new View.OnClickListener() {
+				@Override
+                public void onClick(View v) {
+                    if (clipboard != null) {
+                        TextView textView = findViewById(R.id.textView);
+                        String text = textView.getText().toString();
+                        ClipData clip = ClipData.newPlainText("class_name", text);
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(MainActivity.this, "Copied: " + text, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Clipboard is not usable!!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            //Log.e(TAG, "Failed to handle clipboard!!!: " + e.getMessage());
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                Toast.makeText(this, "Pls try again.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
   }
 
   /**
@@ -153,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
   private void dialog() {
     ColorPickerDialog.Builder builder =
         new ColorPickerDialog.Builder(this)
-            .setTitle("ColorPicker Dialog")
+            .setTitle("Dialog")
             .setPreferenceName("Test")
             .setPositiveButton(
                 getString(R.string.confirm),
