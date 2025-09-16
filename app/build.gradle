@@ -3,6 +3,7 @@ apply from: '../dependencies.gradle'
 
 android {
   compileSdkVersion versions.compileSdk
+  buildToolsVersion versions.buildTools
   defaultConfig {
     applicationId "com.skydoves.colorpickerviewdemo"
     minSdkVersion versions.minSdk
