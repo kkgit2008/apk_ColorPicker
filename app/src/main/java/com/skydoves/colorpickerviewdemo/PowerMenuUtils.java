@@ -32,10 +32,10 @@ public class PowerMenuUtils {
       OnMenuItemClickListener<PowerMenuItem> onMenuItemClickListener) {
     return new PowerMenu.Builder(context)
         .setHeaderView(R.layout.layout_header)
-        .addItem(new PowerMenuItem("Palette", false))
-        .addItem(new PowerMenuItem("Palette(Gallery)", false))
+        .addItem(new PowerMenuItem("Change View", true))
+        .addItem(new PowerMenuItem("From Gallery", true))
         .addItem(new PowerMenuItem("Selector", false))
-        .addItem(new PowerMenuItem("Dialog", false))
+        .addItem(new PowerMenuItem("Dialog", true))
         .setLifecycleOwner(lifecycleOwner)
         .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT)
         .setCircularEffect(CircularEffect.BODY)
